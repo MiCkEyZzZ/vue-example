@@ -2,7 +2,11 @@
   <div class="container">
     <h1>Страница с постами</h1>
     <div class="search">
-      <app-input v-model="query" type="text" placeholder="Поиск..." />
+      <app-input
+        v-model.trim="query"
+        type="text"
+        placeholder="Поиск постов..."
+      />
     </div>
     <div class="app-btn">
       <app-button style="width: 120px" @click="showModal"
@@ -15,17 +19,11 @@
     </app-modal>
     <post-list :posts="searchPosts" @remove="removePost" v-if="!loading" />
     <app-spinner v-else />
-    <ul class="pagination">
-      <li
-        v-for="number in totalPages"
-        :key="number"
-        class="pagination-item"
-        :class="{ 'current-page': page === number }"
-        @click="changePage(number)"
-      >
-        {{ number }}
-      </li>
-    </ul>
+    <app-pagination
+      @page="changePage"
+      v-model:total="totalPages"
+      v-model:page="page"
+    />
   </div>
 </template>
 
@@ -153,34 +151,5 @@ body {
 .search {
   margin: 45px 0 0 0;
   padding: 0;
-}
-
-.pagination {
-  display: flex;
-  flex-direction: row;
-  list-style: none;
-  margin: 25px auto 0 auto;
-  padding: 0;
-}
-
-.pagination-item {
-  margin: 0 5px 0 0;
-  padding: 10px;
-  border: 1px solid #3eaf7c;
-  border-radius: 5px;
-}
-
-.pagination-item:hover {
-  color: #ffffff;
-  background: #3eaf7c;
-  border: 1px solid #3eaf7c;
-  cursor: pointer;
-}
-
-.current-page {
-  color: #ffffff;
-  background: #3eaf7c;
-  border: 1px solid #3eaf7c;
-  cursor: default;
 }
 </style>
