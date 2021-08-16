@@ -4,7 +4,7 @@
       v-for="number in total"
       :key="number"
       class="pagination-item"
-      :class="{ 'current-page': page === number }"
+      :class="{ 'pagination-current': page === number }"
       @click="pagination(number)"
     >
       {{ number }}
@@ -29,33 +29,33 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .pagination {
   display: flex;
   flex-direction: row;
   list-style: none;
   margin: 25px auto 0 auto;
   padding: 0;
-}
 
-.pagination-item {
-  margin: 0 5px 0 0;
-  padding: 10px;
-  border: 1px solid #3eaf7c;
-  border-radius: 5px;
-}
+  &-item {
+    margin: 0 5px 0 0;
+    padding: 10px;
+    border: 1px solid #3eaf7c;
+    border-radius: 5px;
 
-.pagination-item:hover {
-  color: #ffffff;
-  background: #3eaf7c;
-  border: 1px solid #3eaf7c;
-  cursor: pointer;
-}
+    &:hover {
+      color: #ffffff;
+      background: #3eaf7c;
+      border: 1px solid #3eaf7c;
+      cursor: pointer;
+    }
+  }
 
-.current-page {
-  color: #ffffff;
-  background: #3eaf7c;
-  border: 1px solid #3eaf7c;
-  cursor: default;
+  &-current {
+    color: #ffffff;
+    background: #3eaf7c;
+    border: 1px solid #3eaf7c;
+    cursor: default;
+  }
 }
 </style>

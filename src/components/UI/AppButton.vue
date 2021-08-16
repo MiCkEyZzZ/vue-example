@@ -12,7 +12,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .btn {
   margin: 0 15px 0 0;
   padding: 11px;
@@ -20,10 +20,10 @@ export default defineComponent({
   background: transparent;
   border: 1px solid #3eaf7c;
   border-radius: 5px;
-}
 
-.btn:hover {
-  opacity: 0.6;
-  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
 }
 </style>

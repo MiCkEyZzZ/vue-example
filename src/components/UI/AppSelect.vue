@@ -29,7 +29,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .select {
   margin: 0;
   padding: 10px;

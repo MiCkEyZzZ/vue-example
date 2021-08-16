@@ -10,7 +10,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .spinner {
   font-size: 16px;
   font-weight: bold;

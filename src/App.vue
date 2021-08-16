@@ -1,155 +1,40 @@
 <template>
-  <div class="container">
-    <h1>Страница с постами</h1>
-    <div class="search">
-      <app-input
-        v-model.trim="query"
-        type="text"
-        placeholder="Поиск постов..."
-      />
-    </div>
-    <div class="app-btn">
-      <app-button style="width: 120px" @click="showModal"
-        >Добавить пост</app-button
-      >
-      <app-select v-model="selectedSort" :options="sortOptions" />
-    </div>
-    <app-modal v-model:show="modalVisible">
-      <post-form @add="addPost" />
-    </app-modal>
-    <post-list :posts="searchPosts" @remove="removePost" v-if="!loading" />
-    <app-spinner v-else />
-    <app-pagination
-      @page="changePage"
-      v-model:total="totalPages"
-      v-model:page="page"
-    />
+  <div class="app">
+    <navbar />
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
+import Navbar from "@/components/Navbar.vue";
+
 import { defineComponent } from "vue";
-import axios from "axios";
-import { IPost } from "@/types/app";
-import PostForm from "@/components/PostForm.vue";
-import PostList from "@/components/PostList.vue";
 
 export default defineComponent({
-  data() {
-    return {
-      posts: [] as IPost[],
-      modalVisible: false,
-      loading: false,
-      selectedSort: "",
-      query: "",
-      page: 1,
-      limit: 10,
-      totalPages: 0,
-      sortOptions: [
-        { value: "title", name: "По названию" },
-        { value: "description", name: "По описанию" },
-      ],
-    };
-  },
-  methods: {
-    addPost(post: never): void {
-      this.posts.push(post);
-      this.modalVisible = false;
-    },
-    removePost(post: IPost) {
-      this.posts = this.posts.filter((p: IPost) => p.id !== post.id);
-    },
-    showModal() {
-      this.modalVisible = true;
-    },
-    changePage(number: number) {
-      this.page = number;
-    },
-    async getPosts() {
-      try {
-        this.loading = true;
-        const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts",
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            },
-          }
-        );
-        this.totalPages = Math.ceil(
-          response.headers["x-total-count"] / this.limit
-        );
-        this.posts = response.data;
-      } catch (err) {
-        console.log("Произошла ошибка.");
-      } finally {
-        this.loading = false;
-      }
-    },
-  },
-  mounted() {
-    this.getPosts();
-  },
-  computed: {
-    sortedPosts(): IPost[] {
-      return [...this.posts].sort(
-        (a: { [index: string]: any }, b: { [index: string]: any }) =>
-          a[this.selectedSort]?.localeCompare(b[this.selectedSort])
-      );
-    },
-    searchPosts(): IPost[] {
-      return this.sortedPosts.filter((post: { title: string | string[] }) =>
-        post.title.includes(this.query.toLowerCase())
-      );
-    },
-  },
-  watch: {
-    page() {
-      this.getPosts();
-    },
-  },
-  components: { PostForm, PostList },
+  components: { Navbar },
 });
 </script>
 
-<style>
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap");
+
 body {
   width: 100%;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
+  border-width: 0;
+  border-style: solid;
   box-sizing: border-box;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
+.app {
   width: 100%;
-  max-width: 600px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  margin: 200px auto;
-  padding: 0;
-  color: #2c3e50;
-}
-
-.app-btn {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 350px;
-  align-items: center;
   margin: 0;
-  padding: 0;
-}
-
-.search {
-  margin: 45px 0 0 0;
   padding: 0;
 }
 </style>

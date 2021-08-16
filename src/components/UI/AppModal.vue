@@ -25,7 +25,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal {
   position: fixed;
   top: 0;
@@ -37,18 +37,18 @@ export default defineComponent({
   margin: 0;
   padding: 0;
   background: rgba(0, 0, 0, 0.5);
-}
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 350px;
-  min-height: 50px;
-  margin: 0 auto;
-  padding: 0;
-  background: #ffffff;
-  border-radius: 5px;
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 350px;
+    min-height: 50px;
+    margin: 0 auto;
+    padding: 0;
+    background: #ffffff;
+    border-radius: 5px;
+  }
 }
 </style>
