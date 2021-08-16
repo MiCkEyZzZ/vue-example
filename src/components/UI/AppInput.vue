@@ -24,7 +24,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .form-input {
   width: 100%;
   margin: 0 10px 20px 0;
@@ -32,9 +32,9 @@ export default defineComponent({
   border-radius: 5px;
   border: 1px solid #3eaf7c;
   outline: none;
-}
 
-.form-input:focus {
-  border: 1px solid #3eaf7c;
+  &:focus {
+    border: 1px solid #f08d49;
+  }
 }
 </style>
